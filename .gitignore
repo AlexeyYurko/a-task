@@ -1,0 +1,6 @@
+
+.gitignore
+.idea/
+.vscode/
+db.sqlite3
+migrations/
