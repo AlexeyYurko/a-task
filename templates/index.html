@@ -1,0 +1,24 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en-en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Adjust Test{% endblock %}</title>
+</head>
+<body>
+{% block body %}
+    <a href="/import_to_db/">/import_to_db/</a> - populate DB in silent. No progress bar or any other activities.
+    Don't worry, just wait a
+    little. <strong>And please use only once.</strong><br>
+    <h2>API format</h2>
+    <h3>Filters:</h3>
+    date_from<br>
+    date_to<br>
+    os<br>
+    channel<br>
+    country<br>
+    <h3>Sorters:</h3>
+    all fields
+
+{% endblock body %}
+</body>
+</html>
