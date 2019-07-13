@@ -30,6 +30,4 @@ Please make sure you have single API endpoint that is compliant with all use-cas
 
 We expect it to be written in the way so that it could go in production and be maintained by your teammates - please have in mind that we use Python 3 and Django. Don't spend too much time on Docker (if any), that's not what we pay attention to.
 
-Feel free to ask me a question on skype vitaliy.kotik. 
-
 When ready, please share your private repository with https://github.com/kotik
