@@ -3,7 +3,7 @@
 import csv
 from datetime import datetime
 
-from django.db.models import Sum
+from django.db.models import Func, Sum
 from django.http import HttpResponse
 from django.shortcuts import render
 from django_filters import rest_framework as filters
@@ -12,7 +12,7 @@ from rest_framework import generics
 from rest_framework.filters import OrderingFilter
 
 from .models import Record
-from .serializers import RecordSerializer
+from .serializers import RecordSerializerWithGroupBy, RecordSerializerWithoutGroupBy
 
 
 def home(request):
@@ -56,12 +56,19 @@ class RecordFilter(filters.FilterSet):
 
 
 class RecordViewSet(generics.ListAPIView):
-    serializer_class = RecordSerializer
     filter_backends = (DjangoFilterBackend, OrderingFilter,)
     filterset_class = RecordFilter
     ordering_fields = '__all__'
 
+    '''
+    place where the DRY is DIE
+    '''
+
     def get_queryset(self):
+        class Round(Func):
+            function = 'ROUND'
+            arity = 2
+
         queryset = Record.objects.all()
         try:
             groupby = self.request.query_params['groupby']
@@ -69,7 +76,32 @@ class RecordViewSet(generics.ListAPIView):
             return queryset
         if not groupby:
             return queryset
-        groupby_list = groupby.split(',')
-        queryset = queryset.values(*groupby_list).annotate(clicks_sum=Sum('clicks'))
+        groupby_list = ''.join(groupby.lower().split('?')[0]).split(',')
+        allowed_group_by = ['date', 'channel', 'country', 'os']
+        filtered_group_by = [group for group in groupby_list if group in allowed_group_by]
+        if not filtered_group_by:
+            return queryset
+
+        queryset = queryset.values(*filtered_group_by).annotate(clicks_sum=Sum('clicks'),
+                                                                impressions_sum=Sum('impressions'),
+                                                                installs_sum=Sum('installs'),
+                                                                spend_sum=Round(Sum('spend'), 2),
+                                                                revenue_sum=Round(Sum('revenue'), 2),
+                                                                cpi_sum=Round(Sum('cpi'), 2)
+                                                                )
         print(queryset.query)
         return queryset
+
+    def get_serializer(self, *args, **kwargs):
+        try:
+            groupby = self.request.query_params['groupby']
+        except (KeyError, TypeError):
+            return RecordSerializerWithoutGroupBy(*args, **kwargs)
+        if not groupby:
+            return RecordSerializerWithoutGroupBy(*args, **kwargs)
+        groupby_list = ''.join(groupby.lower().split('?')[0]).split(',')
+        allowed_group_by = ['date', 'channel', 'country', 'os']
+        filtered_group_by = [group for group in groupby_list if group in allowed_group_by]
+        if not filtered_group_by:
+            return RecordSerializerWithoutGroupBy(*args, **kwargs)
+        return RecordSerializerWithGroupBy(*args, **kwargs)

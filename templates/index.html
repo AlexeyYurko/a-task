@@ -17,7 +17,24 @@
     channel<br>
     country<br>
     <h3>Sorters:</h3>
-    all fields
+    all fields<br>
+
+    <h3>Group by:</h3>
+    date<br>
+    channel<br>
+    country<br>
+    os<br>
+
+    Output in JSON, incorrect values in groupby ignored.<br>
+    Sample calls:<br>
+    <a href="/api/v1/records/?date_to=2017-06-01&groupby=channel,country&order=-clicks">
+        /api/v1/records/?date_to=2017-06-01&groupby=channel,country&order=-clicks</a><br>
+    <a href="/api/v1/records/?date_from=2017-05-01&date_to=2017-05-31&groupby=date&order=date">
+        /api/v1/records/?date_from=2017-05-01&date_to=2017-05-31&groupby=date&order=date</a><br>
+    <a href="/api/v1/records/?date=2017-06-01&country=US&groupby=os">
+        /api/v1/records/?date=2017-06-01&country=US&groupby=os</a>
+
+
 
 {% endblock body %}
 </body>

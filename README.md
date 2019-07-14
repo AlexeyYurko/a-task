@@ -1,3 +1,19 @@
+## Note
+
+I'm afraid this is not you waiting for. 
+
+It took more than desired 3 hours and it's still incomplete, cannot filter (show/hide) fields, contains spaghetti code and some places looks weird.
+
+Output is just JSON.
+
+Samples:
+/api/v1/records/?date_to=2017-06-01&groupby=channel,country&order=-clicks
+/api/v1/records/?date_from=2017-05-01&date_to=2017-05-31&groupby=date&order=date
+/api/v1/records/?date=2017-06-01&country=US&groupby=os
+
+
+## Task
+
 Expose the sample dataset through a single generic HTTP API endpoint, which is capable of filtering, grouping and sorting. Dataset represents performance metrics (impressions, clicks, installs, spend, revenue) for a given date, advertising channel, country and operating system. It is expected to be stored and processed in a relational database of your choice.
 
 Sample dataset: sample_data.csv
@@ -28,6 +44,3 @@ On top of that, implement CPI (cost per install) metric which is calculated as c
 
 Please make sure you have single API endpoint that is compliant with all use-cases described above and similar.
 
-We expect it to be written in the way so that it could go in production and be maintained by your teammates - please have in mind that we use Python 3 and Django. Don't spend too much time on Docker (if any), that's not what we pay attention to.
-
-When ready, please share your private repository with https://github.com/kotik
