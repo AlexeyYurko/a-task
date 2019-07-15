@@ -1,3 +1,10 @@
+## TODO
+
+Fields filter
+Correct grouping
+Move CPI metrics from hardcoded to aggregated
+HTML render
+
 ## Note
 
 I'm afraid this is not you waiting for. 
