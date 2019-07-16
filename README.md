@@ -15,7 +15,9 @@ Output only to JSON.
 
 Samples:
 /api/v1/records/?date_to=2017-06-01&groupby=channel,country&order=-clicks
+
 /api/v1/records/?date_from=2017-05-01&date_to=2017-05-31&groupby=date&order=date
+
 /api/v1/records/?date=2017-06-01&country=US&groupby=os
 
 
