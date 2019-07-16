@@ -1,17 +1,17 @@
 ## TODO
 
 Fields filter
+
 Correct grouping
+
 Move CPI metrics from hardcoded to aggregated
+
 HTML render
+
 
 ## Note
 
-I'm afraid this is not you waiting for. 
-
-It took more than desired 3 hours and it's still incomplete, cannot filter (show/hide) fields, contains spaghetti code and some places looks weird.
-
-Output is just JSON.
+Output only to JSON.
 
 Samples:
 /api/v1/records/?date_to=2017-06-01&groupby=channel,country&order=-clicks
